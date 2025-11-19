@@ -57,6 +57,11 @@ document_store.json
 chroma_db/
 faiss_index/
 
+# Retrieval pipeline
+retrieval-pipeline/models/
+retrieval-pipeline/*.pid
+retrieval-pipeline/logs/
+
 # Logs
 *.log
 logs/

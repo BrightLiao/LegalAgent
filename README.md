@@ -4,12 +4,26 @@
 
 ## 项目结构
 
+### 0. retrieval-pipeline（基础设施）
+混合检索流水线，提供 **Dense + Sparse + 神经重排序**能力。
+
+**核心特性**：
+- 稠密检索（BGE-M3 语义向量）
+- 稀疏检索（BM25 精确匹配）
+- 神经重排序（BGE-Reranker-v2-M3）
+
+**说明**：RAG4Law 和 AgenticRAG4Law 的底层检索服务
+
+📖 [详细文档](./retrieval-pipeline/README.md)
+
+---
+
 ### 1. RAG4Law
 基础法律知识问答系统，使用 **Contextual Retrieval** 技术进行检索增强。
 
 **核心特性**：
 - 上下文增强的文档分块
-- 混合检索（BM25 + 语义向量）
+- 混合检索（基于 retrieval-pipeline）
 - 支持多种 LLM 提供商
 
 **主要用途**：法律条文查询、知识检索
@@ -63,16 +77,29 @@
 conda create -n legal-agent python=3.10
 conda activate legal-agent
 
-# 2. 安装依赖（选择需要的项目）
-cd RAG4Law  # 或 AgenticRAG4Law
+# 2. 安装基础检索服务依赖
+cd retrieval-pipeline
 pip install -r requirements.txt
 
-# 3. 配置 API Keys
+# 3. 安装应用项目依赖
+cd ../RAG4Law  # 或 AgenticRAG4Law
+pip install -r requirements.txt
+
+# 4. 配置 API Keys
 cp env.example .env
 # 编辑 .env 添加 API 密钥
 ```
 
 ### 运行示例
+
+**第一步：启动检索服务**（必需）
+```bash
+cd retrieval-pipeline
+./start_all_services.sh
+# 服务将运行在端口 4240-4242
+```
+
+**第二步：运行法律问答系统**
 ```bash
 # RAG4Law
 cd RAG4Law
@@ -90,6 +117,7 @@ python main.py --mode compare  # 对比两种模式
 
 | 项目 | 状态 | 说明 |
 |------|------|------|
+| retrieval-pipeline | ✅ 已实现 | 混合检索 + 神经重排序完整实现 |
 | RAG4Law | ✅ 已实现 | Contextual Retrieval 完整实现 |
 | AgenticRAG4Law | ✅ 已实现 | ReAct Agent 完整实现 |
 | LegalAgent | 📋 设计阶段 | 有完整技术方案，未实现代码 |
@@ -98,3 +126,4 @@ python main.py --mode compare  # 对比两种模式
 
 Educational project for learning purposes.
 
+项目部分代码来自于 https://github.com/bojieli/ai-agent-book-projects
