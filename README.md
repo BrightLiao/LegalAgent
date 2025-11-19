@@ -4,17 +4,16 @@
 
 ## 项目结构
 
-### 0. retrieval-pipeline（基础设施）
-混合检索流水线，提供 **Dense + Sparse + 神经重排序**能力。
+### 0. backend（基础设施）
+提供混合检索服务，包含三个核心组件：
 
-**核心特性**：
-- 稠密检索（BGE-M3 语义向量）
-- 稀疏检索（BM25 精确匹配）
-- 神经重排序（BGE-Reranker-v2-M3）
+**dense-embedding**：稠密向量检索（BGE-M3）  
+**sparse-embedding**：稀疏向量检索（BM25）  
+**retrieval-pipeline**：混合检索 + 神经重排序（BGE-Reranker-v2-M3）
 
 **说明**：RAG4Law 和 AgenticRAG4Law 的底层检索服务
 
-📖 [详细文档](./retrieval-pipeline/README.md)
+📖 [详细文档](./backend/retrieval-pipeline/README.md)
 
 ---
 
@@ -78,11 +77,11 @@ conda create -n legal-agent python=3.10
 conda activate legal-agent
 
 # 2. 安装基础检索服务依赖
-cd retrieval-pipeline
+cd backend/retrieval-pipeline
 pip install -r requirements.txt
 
 # 3. 安装应用项目依赖
-cd ../RAG4Law  # 或 AgenticRAG4Law
+cd ../../RAG4Law  # 或 AgenticRAG4Law
 pip install -r requirements.txt
 
 # 4. 配置 API Keys
@@ -94,7 +93,7 @@ cp env.example .env
 
 **第一步：启动检索服务**（必需）
 ```bash
-cd retrieval-pipeline
+cd backend/retrieval-pipeline
 ./start_all_services.sh
 # 服务将运行在端口 4240-4242
 ```
@@ -117,7 +116,7 @@ python main.py --mode compare  # 对比两种模式
 
 | 项目 | 状态 | 说明 |
 |------|------|------|
-| retrieval-pipeline | ✅ 已实现 | 混合检索 + 神经重排序完整实现 |
+| backend/* | ✅ 已实现 | 混合检索服务完整实现 |
 | RAG4Law | ✅ 已实现 | Contextual Retrieval 完整实现 |
 | AgenticRAG4Law | ✅ 已实现 | ReAct Agent 完整实现 |
 | LegalAgent | 📋 设计阶段 | 有完整技术方案，未实现代码 |

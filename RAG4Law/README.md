@@ -84,9 +84,9 @@ cp env.example .env
 
 ```bash
 # In a separate terminal, start the retrieval pipeline server
-cd ../retrieval-pipeline
-python main.py
-# Server will run on http://localhost:4242
+cd ../backend/retrieval-pipeline
+./start_all_services.sh
+# Services will run on ports 4240-4242
 ```
 
 ### 4. Index Documents

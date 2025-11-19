@@ -16,7 +16,7 @@ An educational implementation of an Agentic Retrieval-Augmented Generation (RAG)
   - Together AI
   - DeepSeek
 - **Flexible Knowledge Base**:
-  - Local retrieval pipeline (requires ../retrieval-pipeline)
+  - Local retrieval pipeline (requires ../backend/retrieval-pipeline)
   - Dify knowledge base API
 - **Document Chunking**: Configurable chunking with paragraph boundary respect
 - **Evaluation Framework**: Comprehensive evaluation with Chinese legal dataset
@@ -62,9 +62,9 @@ First, start the retrieval pipeline server (required for local knowledge base):
 
 ```bash
 # In a separate terminal
-cd ../retrieval-pipeline
-python main.py
-# Server will run on http://localhost:4242
+cd ../backend/retrieval-pipeline
+./start_all_services.sh
+# Services will run on ports 4240-4242
 ```
 
 ### 2. Index Documents
@@ -295,8 +295,8 @@ The system includes an evaluation framework that compares both modes:
 curl http://localhost:4242/health
 
 # If not, start it:
-cd ../retrieval-pipeline
-python main.py
+cd ../backend/retrieval-pipeline
+./start_all_services.sh
 ```
 
 ### No Search Results

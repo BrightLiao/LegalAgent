@@ -57,10 +57,12 @@ document_store.json
 chroma_db/
 faiss_index/
 
-# Retrieval pipeline
-retrieval-pipeline/models/
-retrieval-pipeline/*.pid
-retrieval-pipeline/logs/
+# Backend services
+backend/*/models/
+backend/*/*.pid
+backend/*/logs/
+backend/dense-embedding/vector_db/
+backend/sparse-embedding/bm25_index/
 
 # Logs
 *.log
